@@ -12,3 +12,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+div.btn-group {
+  text-align: center;
+  width: inherit;
+}
+
+.btn-group{
+  margin: 10px 10px;
+}
+
+.card-body{
+  text-align: center;
+}
+
+.small{
+  font-size: 100%;
+}
+
+.temp{
+  margin: 10px 0px; 
+}
+
+.btn-show{
+  display: flex;
+  justify-content: center;
+  margin: 10px 10px; 
+  text-align: center;
+
+}
