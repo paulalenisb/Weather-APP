@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function WheaterInput({ query, setQuery, search }) {
-    
 
     return (
 
@@ -16,9 +15,6 @@ export default function WheaterInput({ query, setQuery, search }) {
                     value={query}
                     onKeyPress={search}/>
             </div>
-            {/* <button className="btn btn-success btn-block">
-                Get Weather
-            </button> */}
         </form>
     </div>
     );

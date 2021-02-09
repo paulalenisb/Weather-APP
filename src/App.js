@@ -6,7 +6,20 @@ import {
   } from 'recharts';
 
 import Api from './data';
+import TagManager from 'react-gtm-module';
 
+const tagManagerArgs = {gtmId: 'GTM-T4HMMKL'}
+
+TagManager.initialize(tagManagerArgs);
+
+TagManager.dataLayer({
+  dataLayer: {
+    'event': 'ga_event',
+    'category': 'Aplicativo',
+    'action': 'Ciudad', 
+    'label': 'temperatura'
+   }
+})
 
 export default function App() {
 
@@ -28,20 +41,16 @@ export default function App() {
               setWeather(currentlyWeather);
               setNextDays(nextDaysForecast);
               setQuery('');
-              console.log(currentlyWeather,nextDaysForecast)
           })
           .catch((err) => {
               console.log(err);
           })
       }}
 
+
       const forecast = nextDays.list;
-
-      console.log(forecast);
-
       const weather5Days = []
       let data = []
-
 
       if (typeof nextDays.list != "undefined") {
           for (let i = 0; i < forecast.length; i += 8) {
@@ -80,6 +89,7 @@ export default function App() {
                                 value='today'
                                 /> Today
                         </label>
+
                         <label className="btn btn-primary">
                             <input 
                                 type="radio" 
@@ -91,34 +101,70 @@ export default function App() {
                         </label>
                         </div>
     
-                    {(typeof weather.main != "undefined") && (date==='today') ? (
-                       <div>
-                            <TodayWeatherInfo
+                    {(typeof weather.main != "undefined") && (date==='today') ? ( <div>
+                        <TodayWeatherInfo
                             weather={weather}/>         
                        </div> 
                     ) : ('')}
     
-                    {(typeof nextDays.list != "undefined")  && (date==='days') ? (
-                        <div>
-                            <div className="card">
-                                <div className="card-body center">
-                                    <LineChart
-                                        width={500}
-                                        height={300}
-                                        data={data}
-                                        margin={{top: 5, right: 100, left: 0, bottom: 5,}}>
-                                                <CartesianGrid strokeDasharray="3 3" />
-                                                <XAxis dataKey='day'/>
-                                                <XAxis dataKey='time'/>
-                                                <YAxis domain={[0, ' + 1000']}          allowDataOverflow={true} />
-                                                <Tooltip />
-                                                <Legend />
-                                                <Line type="monotone"                   dataKey='temp_min' stroke="#4582ec" activeDot={{  r: 8 }} />
-                                                <Line type="monotone" dataKey='temp_max'  stroke="#000" activeDot={{ r: 8 }} />
-                                        </LineChart>
+                    {(typeof nextDays.list != "undefined")  && (date==='days') ? ( <>
+                        <div className="card">
+                            <div className="card-body center">
+                                <LineChart
+                                    width={500}
+                                    height={300}
+                                    data={data}
+                                    margin={{top: 5, right: 100, left: 0, bottom: 5,}}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey='day'/>
+                                    <YAxis />
+                                    <Tooltip />
+                                     <Legend />
+                                    <Line 
+                                        type="monotone"                   dataKey='temp_min' 
+                                        stroke="#1EA500" 
+                                        activeDot={{  r: 8 }} />
+                                    <Line
+                                    type="monotone" 
+                                    dataKey='temp_max' 
+                                    stroke="#FF3333" 
+                                    activeDot={{ r: 8 }} />
+                                    </LineChart>
                                 </div>
                             </div>
-                        </div>
+
+                            <div className="card-group">
+                                <div className="card">
+                                    <div className="card-body">
+                                    <h5 className="card-subtitle">Day {weather5Days[0].dt_txt.slice(8,10)} {weather5Days[0].weather[0].main}</h5>
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <div className="card-body">
+                                    <h5 className="card-subtitle">Day {weather5Days[1].dt_txt.slice(8,10)} {weather5Days[1].weather[0].main}</h5>
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <div className="card-body">
+                                    <h5 className="card-subtitle">Day {weather5Days[2].dt_txt.slice(8,10)} {weather5Days[2].weather[0].main}</h5>
+                                    </div>
+                                </div>
+
+                                <div className="card">
+                                    <div className="card-body">
+                                    <h5 className="card-subtitle">Day {weather5Days[3].dt_txt.slice(8,10)} {weather5Days[3].weather[0].main}</h5>
+                                    </div>
+                                </div>
+                                
+                                <div className="card">
+                                    <div className="card-body">
+                                    <h5 className="card-subtitle">Day {weather5Days[4].dt_txt.slice(8,10)} {weather5Days[4].weather[0].main}</h5>
+                                </div>
+                            </div>
+                            </div>
+                        </>
                     ) : ('')} 
                 </div>
             </div>

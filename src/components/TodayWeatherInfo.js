@@ -16,11 +16,11 @@ export default function TodayWheaterInfo({weather}) {
     <div>
         <div className='card card-body'>
             <h5 className='mb-1'>{weather.name}, {weather.sys.country}</h5>
-            <p className='lead'>{Math.round(weather.main.temp)}°c</p>
+            <h2 className="text-muted">{Math.round(weather.main.temp)}°c</h2>
             <p className='lead'>{weather.weather[0].main}</p>
         </div>
 
-        <div className="card-group">
+        <div className="card-group temp">
             <div className="card">
                 <div className="card-body">
                 <h5 className="card-title">Temp max {Math.round(weather.main.temp_max)}°c</h5>
@@ -32,21 +32,18 @@ export default function TodayWheaterInfo({weather}) {
                 </div>
             </div>
         </div>
-        {/* {
-            if (showMore === false) {
 
-            }
-        } */}
-        <button 
+        <div className="btn-show">
+            <button 
             type="button" 
-            className="btn btn-primary btn-lg btn-block"
-            onClick={()=>setShowMore(close => !close)}>More info</button>
+            className="btn btn-info"
+            onClick={()=>setShowMore(close => !close)}>More info</button></div>
         {
             showMore ? (
             <div className="card-group">
                 <div className="card">
                     <div className="card-body">
-                    <h5 className="card-title">Wind Speed {Math.round(weather.wind.speed)} meter/sec</h5>
+                    <h5 className="card-subtitle">Wind Speed   {Math.round(weather.wind.speed)} m/s</h5>
                     </div>
                 </div>
 
